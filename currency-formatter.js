@@ -1,0 +1,31 @@
+<script>
+  "use strict";
+
+  window.addEventListener('load', () => {
+    // We create an instance of a number formatter to format our currency
+    // We've used 'pt-BR' as our instance locale. Here's a exhaustive list of existing
+    // locales: http://download1.parallels.com/SiteBuilder/Windows/docs/3.2/en_US/sitebulder-3.2-win-sdk-localization-pack-creation-guide/30801.htm
+    //
+    // Also, if you want more fine grained control over your formatter, just check out MDN docs here: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat
+    const currencyFormatter = Intl.NumberFormat('pt-BR', {
+      style : 'currency',
+      currency: 'BRL',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 2
+    })
+
+    // We iterate through all of our currency elements and update them with our format
+    // It's important that their contents must be composed of numbers only, otherwise this script will throw an error
+    function updateCurrencies() {
+    // Here you should change ".currency" class with yours
+      const currencyElements = document.querySelectorAll(".currency")
+
+      currencyElements.forEach(element => {
+        const currencyNumber = Number(element.innerHTML)
+        element.innerHTML = currencyFormatter.format(currencyNumber)
+      })
+    }
+    
+    updateCurrencies()
+  })
+</script>
