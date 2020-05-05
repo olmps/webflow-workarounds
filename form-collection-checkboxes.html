@@ -1,0 +1,25 @@
+// What you need to setup this script:
+// 1. Add a Collection List;
+// 2. Add a Checkbox Field inside of your Collection Item;
+// 3. Add a class to this "Checkbox Field" - TO THE FIELD, not the "Checkbox" itself. In this example,
+// we've named this class "checkbox-field";
+// 4. Use the collection's text field in the "Checkbox Label";
+// 5. Copy and paste this script in your Custom Code section or, alternatively, inside an "Embed" element.
+<script>
+  var Webflow = Webflow || [];
+
+  // DOMready has fired - may now use jQuery and Webflow api
+  Webflow.push(function () {
+    // We iterate through all labels that have this "checkbox-field" class
+    $("label.checkbox-field").each(function () {
+        // For each value inside this checkbox, we get the text from the webflow's generated label
+        const checkboxValue = $(this).find("span.w-form-label")[0].innerHTML
+        // Then we get the sibling input
+        const input = $(this).find("input")
+
+        // And update this exact same input the following values, so our form can actually differentiate which one was checked.
+        $(input).attr("name", checkboxValue)
+        $(input).attr("data-name", checkboxValue)
+    })
+  })
+</script>
